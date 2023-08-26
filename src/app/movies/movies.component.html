@@ -1,0 +1,136 @@
+<div *ngIf="selectedTime" class="container justify-content-center mt-4">
+    <!-- โรงภาพยนตร์ -->
+ <ul class="nav nav-tabs justify-content-center" style="width: 100%">
+    <li class="nav-item active" >
+      <a class="nav-link" (click)="showMovieDetails(1)" href="javascript:void">
+        โรงภาพยนตร์ 1
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="showMovieDetails(2)" href="javascript:void">
+        โรงภาพยนตร์ 2
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="showMovieDetails(3)" href="javascript:void">
+        โรงภาพยนตร์ 3
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="showMovieDetails(4)" href="javascript:void">
+        โรงภาพยนตร์ 4
+      </a>
+    </li>
+  </ul>
+  
+  <div *ngIf="selectedTheater" class="my-tab-content container bg-white p-4">
+    <!-- Movie details for the selected theater -->
+    <div class="container mt-3">
+      <div class="row">
+        <div class="d-flex col-sm-6 justify-content-center justify-content-sm-end">
+          <img class="shadow" [src]="selectedTheater.movie.coverImage" style="width: 240px;">
+        </div>
+        <div class="col-sm-6">
+          <div class="h5 text-primary fw-bold my-3">{{ selectedTheater.movie.name }}</div>
+          <div class="h6">หมวดหมู่: {{ selectedTheater.movie.genre }}</div>
+          <div class="h6">เรท: {{ selectedTheater.movie.rate }}</div>
+          <div class="h6"><i class="fa-regular fa-clock"></i> {{ selectedTheater.movie.length }} นาที</div>
+          <div class="h6">ราคาที่นั่ง: {{ selectedTheater.seatPrice }}</div>
+          <div class="h6">จำนวนที่นั่ง: {{ selectedTheater.seatData.numRows }} แถว x {{ selectedTheater.seatData.numSeatsPerRow }} ที่นั่ง</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="my-tab-content container bg-white p-4">  
+    <!-- รอบฉาย -->
+    <div class="mx-sm-5" style="margin-bottom: 80px;">
+      <div class="h4 mt-5 mb-3">รอบฉาย</div>
+      <div class="row g-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <button type="button" class="btn btn-primary" (click)="selectTime()">
+            11:45
+          </button>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <button type="button" class="btn btn-primary" (click)="selectTime()">
+            14:15
+          </button>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <button type="button" class="btn btn-primary"(click)="selectTime()">
+            16:45
+          </button>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3"(click)="selectTime()">
+          <button type="button" class="btn btn-primary">
+            19:15
+          </button>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3"(click)="selectTime()">
+          <button type="button" class="btn btn-primary">
+            21:45
+          </button>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+    <div *ngIf="!selectedTime && selectedTheater" class="my-tab-content container bg-white p-4">
+        <!-- Movie details for the selected theater -->
+        <div class="container mt-3">
+          <div class="row">
+            <div class="d-flex col-sm-6 justify-content-center justify-content-sm-end">
+              <img class="shadow" [src]="selectedTheater.movie.coverImage" style="width: 240px;">
+            </div>
+            <div class="col-sm-6">
+              <div class="h5 text-primary fw-bold my-3">{{ selectedTheater.movie.name }}</div>
+              <div class="h6">หมวดหมู่: {{ selectedTheater.movie.genre }}</div>
+              <div class="h6">เรท: {{ selectedTheater.movie.rate }}</div>
+              <div class="h6"><i class="fa-regular fa-clock"></i> {{ selectedTheater.movie.length }} นาที</div>
+            </div>
+          </div>
+        </div>
+      
+      
+        <div class="row justify-content-center">
+            <div class="container mt-4">
+                <!-- Loop through rows -->
+                <div *ngFor="let row of generateArray(selectedTheater?.seatData.numRows); let rowIndex = index" class="row justify-content-center">
+                  <div class="d-flex align-items-center"> <!-- Use a flex container to align items horizontally -->
+                    <span class="text-center h4 mt-1 row-name">{{ getRowLabel(rowIndex) }}</span>
+              
+                    <!-- Loop through seats per row -->
+                    <ng-container *ngFor="let seat of generateArray(selectedTheater?.seatData.numSeatsPerRow)">
+                      <span
+                        class="p-0 my-0 seat"
+                        [style.cursor]="getSeatCursor(seat)"
+                        [style.color]="isSeatSelected(seat) ? 'green' : 'tomato'"
+                        (click)="toggleSeatSelection(seat)"
+                      >
+                        <i class="fa-solid" [ngClass]="isSeatSelected(seat) ? 'fa-circle-check' : 'fa-couch'"></i>
+                      </span>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              
+          </div>
+          
+          
+    </div>
+    <div *ngIf="!selectedTime && selectedTheater">
+        <div  class="fw-bold mb-3">{{ selectedTheater.movie.name }}</div>
+    <ul>
+      <li>
+        <div class="my-2">โรงภาพยนตร์ 2</div>
+      </li>
+      <li>
+        <div class="my-2"><i class="fa-solid fa-couch" style="color: gray"></i>&nbsp;180 บาท</div>
+      </li>
+      <app-summary></app-summary>
+    </ul>
+
+    </div>
+    
+        
+      

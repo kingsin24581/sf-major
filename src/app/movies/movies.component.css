@@ -1,0 +1,36 @@
+* {
+    font-family: 'Prompt', sans-serif;
+  }
+
+  .logo {
+    height: 36px;
+  }
+
+  .my-tab-content {
+    border-left: 1px solid rgb(222, 226, 230);
+    border-right: 1px solid rgb(222, 226, 230)
+  }
+
+  button {
+    width: 140px;
+  }
+
+  img.shadow {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  a:link {
+    text-decoration: none;
+  }
+
+  a:visited {
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  a:active {
+    text-decoration: none;
+  }
